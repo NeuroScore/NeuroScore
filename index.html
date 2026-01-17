@@ -3,54 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroScore - Desenvolva seu QI</title>
+<title>NeuroScore - Performance Cognitiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   /* Reset */
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Arial', sans-serif; background:#000; color:#fff; overflow-x:hidden; }
+  body { font-family:'Inter', 'Helvetica Neue', sans-serif; background:#0a0a0a; color:#f5f5f5; overflow-x:hidden; line-height:1.6; }
+  a { color:inherit; text-decoration:none; }
+  html { scroll-behavior:smooth; }
+  .container { max-width:1200px; margin:0 auto; padding:0 20px; }
 
   /* Header */
-  header { position: fixed; width: 100%; background: rgba(0,0,0,0.85); display:flex; justify-content:space-between; align-items:center; padding:20px 50px; z-index:1000; box-shadow:0 2px 10px rgba(255,255,255,0.05); }
-  header img { height:60px; }
-  nav a { margin-left:25px; font-weight:bold; color:#fff; transition:0.3s; }
-  nav a:hover { color:#00ffff; }
+  header { position: fixed; width: 100%; background: rgba(8,8,8,0.95); backdrop-filter: blur(8px); display:flex; justify-content:space-between; align-items:center; padding:18px 0; z-index:1000; border-bottom:1px solid rgba(255,255,255,0.08); }
+  .nav-inner { display:flex; justify-content:space-between; align-items:center; gap:40px; }
+  header img { height:48px; filter: grayscale(1) brightness(1.2); }
+  nav a { margin-left:24px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; font-size:12px; color:#f5f5f5; transition:0.3s; }
+  nav a:hover { color:#bfbfbf; }
 
   /* Hero */
-  .hero { display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; text-align:center; background:radial-gradient(circle, #111 0%, #000 100%); overflow:hidden; }
-  .hero h1 { font-size:50px; color:#fff; text-shadow:0 0 20px #00ffff; margin-bottom:20px; animation:fadeInDown 1.5s; }
-  .hero p { font-size:20px; max-width:700px; margin-bottom:30px; animation:fadeIn 2s; }
-  .hero a.button { background:#fff; color:#000; padding:15px 35px; border-radius:10px; font-size:20px; font-weight:bold; transition:0.3s; animation:fadeInUp 2.5s; }
-  .hero a.button:hover { background:#00ffff; color:#000; }
+  .hero { display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:100vh; text-align:center; background:radial-gradient(circle, #1a1a1a 0%, #0a0a0a 70%); overflow:hidden; padding:140px 20px 80px; position:relative; }
+  .hero h1 { font-size:56px; color:#fff; letter-spacing:6px; text-transform:uppercase; margin-bottom:20px; animation:fadeInDown 1.5s; }
+  .hero p { font-size:20px; max-width:720px; margin-bottom:30px; color:#d1d1d1; animation:fadeIn 2s; }
+  .button { background:#f5f5f5; color:#0a0a0a; padding:16px 38px; border-radius:999px; font-size:14px; letter-spacing:1px; text-transform:uppercase; font-weight:700; transition:0.3s; display:inline-flex; align-items:center; justify-content:center; gap:10px; }
+  .button:hover { background:#bfbfbf; color:#0a0a0a; }
 
   @keyframes fadeInDown { 0% {opacity:0; transform:translateY(-50px);} 100% {opacity:1; transform:translateY(0);} }
   @keyframes fadeInUp { 0% {opacity:0; transform:translateY(50px);} 100% {opacity:1; transform:translateY(0);} }
   @keyframes fadeIn { 0% {opacity:0;} 100% {opacity:1;} }
 
   /* Luzes animadas */
-  .light { position:absolute; border-radius:50%; filter:blur(60px); animation:float 6s ease-in-out infinite alternate; }
-  .light1 { width:200px; height:200px; background:#00ffff; top:20%; left:10%; }
-  .light2 { width:150px; height:150px; background:#fff; top:70%; left:80%; }
+  .light { position:absolute; border-radius:50%; filter:blur(90px); opacity:0.45; animation:float 6s ease-in-out infinite alternate; }
+  .light1 { width:260px; height:260px; background:#ffffff; top:15%; left:8%; }
+  .light2 { width:180px; height:180px; background:#ffffff; top:70%; left:80%; }
   @keyframes float { 0% {transform:translateY(0);} 100% {transform:translateY(-30px);} }
 
   /* Sections */
-  section { padding:80px 20px; max-width:1200px; margin:0 auto; }
-  h2 { color:#00ffff; font-size:36px; text-align:center; margin-bottom:40px; text-shadow:0 0 10px #00ffff; }
-  p { font-size:18px; margin-bottom:20px; color:#ccc; }
+  main section { padding:90px 0; }
+  h2 { color:#fff; font-size:36px; text-align:center; margin-bottom:24px; letter-spacing:2px; text-transform:uppercase; }
+  p { font-size:18px; margin-bottom:20px; color:#bdbdbd; }
 
   /* Grid / Cards */
-  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:30px; }
-  .card { background:#111; border:1px solid #00ffff; padding:25px; border-radius:15px; text-align:center; box-shadow:0 0 20px rgba(0,255,255,0.2); transition:0.3s; }
-  .card:hover { transform:translateY(-10px); box-shadow:0 0 40px #00ffff; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:30px; }
+  .card { background:#0f0f0f; border:1px solid rgba(255,255,255,0.08); padding:28px; border-radius:20px; text-align:left; box-shadow:0 25px 60px rgba(0,0,0,0.4); transition:0.3s; }
+  .card:hover { transform:translateY(-8px); border-color:rgba(255,255,255,0.18); }
 
-  .card h3 { color:#fff; margin-bottom:15px; }
-  .card p { color:#ccc; }
+  .card h3 { color:#fff; margin-bottom:15px; font-size:20px; }
+  .card p { color:#bdbdbd; }
 
   /* Footer */
-  footer { background:#111; text-align:center; padding:40px 20px; font-size:14px; color:#777; border-top:1px solid #00ffff; }
+  footer { background:#0f0f0f; text-align:center; padding:40px 20px; font-size:13px; color:#8a8a8a; border-top:1px solid rgba(255,255,255,0.08); }
 
   /* Button estilo CTA */
-  .cta-button { background:#00ffff; color:#000; padding:15px 35px; border-radius:10px; font-weight:bold; font-size:18px; display:inline-block; margin-top:20px; transition:0.3s; }
-  .cta-button:hover { background:#fff; color:#000; }
+  .cta-button { background:#f5f5f5; color:#0a0a0a; padding:14px 30px; border-radius:999px; font-weight:700; font-size:14px; letter-spacing:1px; text-transform:uppercase; display:inline-flex; align-items:center; justify-content:center; margin-top:20px; transition:0.3s; }
+  .cta-button:hover { background:#bfbfbf; color:#0a0a0a; }
+
+  .section-lead { text-align:center; max-width:760px; margin:0 auto 40px; }
+
+  .ebook-card { display:grid; grid-template-columns:1.1fr 1fr; gap:28px; align-items:center; }
+  .ebook-cover { width:100%; border-radius:16px; filter: grayscale(1); }
+  .ebook-meta { font-size:14px; text-transform:uppercase; letter-spacing:1px; color:#8f8f8f; margin-bottom:8px; }
+  .price-tag { font-size:28px; color:#fff; margin:12px 0 4px; }
+  .badge { display:inline-flex; align-items:center; gap:6px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:6px 14px; font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#d1d1d1; }
+
+  @media (max-width: 768px) {
+    header { padding:14px 0; }
+    nav { display:none; }
+    .hero h1 { font-size:38px; letter-spacing:4px; }
+    .hero p { font-size:18px; }
+    .ebook-card { grid-template-columns:1fr; }
+  }
 </style>
 </head>
 <body>
@@ -61,70 +84,88 @@
 
 <!-- Header -->
 <header>
-  <img src="ChatGPT Image 29 de dez. de 2025, 13_25_06.png" alt="NeuroScore Logo">
-  <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#metodos">Métodos</a>
-    <a href="#ebook">Ebook</a>
-    <a href="#contato">Contato</a>
-  </nav>
+  <div class="container nav-inner">
+    <img src="ChatGPT Image 29 de dez. de 2025, 13_25_06.png" alt="NeuroScore Logo">
+    <nav>
+      <a href="#sobre">Sobre</a>
+      <a href="#metodos">Métodos</a>
+      <a href="#ebook">Ebook</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
 </header>
 
 <!-- Hero -->
 <section class="hero">
   <h1>NeuroScore</h1>
-  <p>Desenvolva seu QI, memória, concentração e raciocínio com métodos científicos e práticos de treinamento cognitivo.</p>
-  <a href="#ebook" class="button">Baixe o Ebook Agora</a>
+  <p>Treinamento cognitivo com metodologia baseada em neurociência para ampliar foco, memória e tomada de decisão.</p>
+  <a href="#ebook" class="button">Comprar Ebook</a>
 </section>
 
-<!-- Sobre -->
-<section id="sobre">
-  <h2>Sobre NeuroScore</h2>
-  <p>A NeuroScore é uma plataforma dedicada ao desenvolvimento cognitivo, utilizando técnicas baseadas em neurociência e psicologia para aprimorar inteligência, memória e foco.</p>
-  <p>Nossa missão é transformar a forma como você treina sua mente, oferecendo conteúdos digitais de alta qualidade e exercícios comprovados para estimular seu cérebro de forma eficiente.</p>
-</section>
+<main>
+  <!-- Sobre -->
+  <section id="sobre">
+    <div class="container">
+      <h2>Sobre NeuroScore</h2>
+      <div class="section-lead">
+        <p>A NeuroScore é uma marca de performance mental que une ciência e prática para impulsionar resultados reais no dia a dia.</p>
+      </div>
+      <p>Com conteúdos digitais de alto padrão, ajudamos você a treinar habilidades cognitivas essenciais como memória, concentração e raciocínio lógico.</p>
+      <p>Nosso foco é uma experiência direta, elegante e eficiente — o seu cérebro no centro da estratégia.</p>
+    </div>
+  </section>
 
-<!-- Métodos -->
-<section id="metodos">
-  <h2>Métodos de Treinamento</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Exercícios de Memória</h3>
-      <p>Fortaleça sua memória de curto e longo prazo com técnicas de associação, mapas mentais e repetição espaçada.</p>
+  <!-- Métodos -->
+  <section id="metodos">
+    <div class="container">
+      <h2>Métodos de Treinamento</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Memória de Alta Performance</h3>
+          <p>Técnicas de associação, mapas mentais e repetição espaçada para consolidar informações críticas.</p>
+        </div>
+        <div class="card">
+          <h3>Raciocínio Estratégico</h3>
+          <p>Protocolos de resolução de problemas com desafios progressivos e foco em clareza mental.</p>
+        </div>
+        <div class="card">
+          <h3>Concentração Profunda</h3>
+          <p>Estratégias práticas para reduzir ruído mental e sustentar atenção em tarefas complexas.</p>
+        </div>
+        <div class="card">
+          <h3>Aprendizado Acelerado</h3>
+          <p>Modelos de estudo que aumentam retenção e velocidade de assimilação de novos conteúdos.</p>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <h3>Raciocínio Lógico</h3>
-      <p>Desafie sua mente com quebra-cabeças, problemas matemáticos e jogos de lógica que aumentam seu QI.</p>
-    </div>
-    <div class="card">
-      <h3>Concentração e Foco</h3>
-      <p>Aprenda estratégias para manter atenção prolongada e reduzir distrações no seu dia a dia.</p>
-    </div>
-    <div class="card">
-      <h3>Aprendizado Acelerado</h3>
-      <p>Utilize técnicas de aprendizado rápido e retenção de informações com métodos comprovados de neurociência.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Ebook -->
-<section id="ebook">
-  <h2>Nosso Ebook</h2>
-  <div class="grid">
-    <div class="card">
-      <img src="ChatGPT Image 29 de dez. de 2025, 13_30_54.png" alt="Capa do Ebook" style="width:100%; border-radius:10px; margin-bottom:15px;">
-      <h3>Desenvolvendo seu QI</h3>
-      <p>Um guia completo com técnicas práticas para melhorar QI, memória, raciocínio e concentração. Ideal para qualquer pessoa que queira desenvolver suas habilidades cognitivas.</p>
-      <a href="https://buy.stripe.com/test_5kQ9AS1TCdxr3CG5P6gjC00" class="cta-button">Comprar Agora</a>
+  <!-- Ebook -->
+  <section id="ebook">
+    <div class="container">
+      <h2>Nosso Ebook</h2>
+      <div class="card ebook-card">
+        <img src="ChatGPT Image 29 de dez. de 2025, 13_30_54.png" alt="Capa do Ebook" class="ebook-cover">
+        <div>
+          <span class="badge">Edição Digital</span>
+          <h3>NeuroScore: Mente em Alta Performance</h3>
+          <p>Um guia completo com protocolos claros, exercícios práticos e rotinas inteligentes para evoluir sua performance cognitiva.</p>
+          <p class="ebook-meta">Formato PDF • Acesso imediato • Conteúdo exclusivo</p>
+          <div class="price-tag">R$ 49,90</div>
+          <a href="https://buy.stripe.com/test_5kQ9AS1TCdxr3CG5P6gjC00" class="cta-button">Comprar Ebook</a>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Contato -->
-<section id="contato">
-  <h2>Contato</h2>
-  <p>Tem dúvidas ou quer saber mais sobre NeuroScore? Entre em contato pelo e-mail: <strong>contatoneuroscore@gmail.com</strong></p>
-</section>
+  <!-- Contato -->
+  <section id="contato">
+    <div class="container">
+      <h2>Contato</h2>
+      <p>Para parcerias, dúvidas ou suporte, fale conosco: <strong>contatoneuroscore@gmail.com</strong></p>
+    </div>
+  </section>
+</main>
 
 <!-- Footer -->
 <footer>
