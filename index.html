@@ -177,6 +177,17 @@
   window.ZWidget = {
     AgentURL: "https://platform.zaia.app/embed/chat/73326",
   };
+
+  // Esperar o widget estar pronto
+  window.addEventListener("message", function(event) {
+    if (event.data.type === "widget-data") {
+      window.ZWidget.setCustomData({
+        // Exemplo de dados personalizados
+        exampleUserId: "<user_id>",
+        exampleUserEmail: "<user@example.com>",
+      });
+    }
+  });
 </script>
 <!-- Widget Loader Script -->
 <script src="https://platform.zaia.app/script/widget-loader.js"></script>
