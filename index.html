@@ -6,116 +6,343 @@
 <title>NeuroScore - Performance Cognitiva</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Reset */
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Inter', 'Helvetica Neue', sans-serif; background:#0a0a0a; color:#f5f5f5; overflow-x:hidden; line-height:1.6; }
-  a { color:inherit; text-decoration:none; }
   html { scroll-behavior:smooth; }
-  .container { max-width:1200px; margin:0 auto; padding:0 20px; }
+  body {
+    font-family:'Inter', 'Helvetica Neue', sans-serif;
+    background:#050505;
+    color:#f5f5f5;
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  a { color:inherit; text-decoration:none; }
+  .container { max-width:1200px; margin:0 auto; padding:0 24px; }
 
-  /* Header */
-  header { position: fixed; width: 100%; background: rgba(8,8,8,0.95); backdrop-filter: blur(8px); display:flex; justify-content:space-between; align-items:center; padding:18px 0; z-index:1000; border-bottom:1px solid rgba(255,255,255,0.08); }
+  :root {
+    --white:#f5f5f5;
+    --gray:#b8b8b8;
+    --black:#050505;
+    --black-soft:#0c0c0c;
+    --line:rgba(255,255,255,0.12);
+  }
+
+  body::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 55%),
+      radial-gradient(circle at 70% 30%, rgba(255,255,255,0.06), transparent 60%),
+      linear-gradient(140deg, rgba(255,255,255,0.05), transparent 40%);
+    pointer-events:none;
+    z-index:-2;
+  }
+
+  .grid-noise {
+    position:fixed;
+    inset:0;
+    background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:40px 40px;
+    opacity:0.25;
+    pointer-events:none;
+    z-index:-1;
+  }
+
+  header {
+    position:fixed;
+    width:100%;
+    background:rgba(5,5,5,0.92);
+    backdrop-filter: blur(10px);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+    z-index:1000;
+    border-bottom:1px solid var(--line);
+  }
   .nav-inner { display:flex; justify-content:space-between; align-items:center; gap:40px; }
-  header img { height:48px; filter: grayscale(1) brightness(1.2); }
-  nav a { margin-left:24px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; font-size:12px; color:#f5f5f5; transition:0.3s; }
+  header img { height:48px; filter: grayscale(1) brightness(1.3); }
+  nav a { margin-left:24px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; font-size:11px; color:#f5f5f5; transition:0.3s; }
   nav a:hover { color:#bfbfbf; }
 
-  /* Hero */
-  .hero { display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:100vh; text-align:center; background:radial-gradient(circle, #1a1a1a 0%, #0a0a0a 70%); overflow:hidden; padding:140px 20px 80px; position:relative; }
-  .hero h1 { font-size:56px; color:#fff; letter-spacing:6px; text-transform:uppercase; margin-bottom:20px; animation:fadeInDown 1.5s; }
-  .hero p { font-size:20px; max-width:720px; margin-bottom:30px; color:#d1d1d1; animation:fadeIn 2s; }
-  .button { background:#f5f5f5; color:#0a0a0a; padding:16px 38px; border-radius:999px; font-size:14px; letter-spacing:1px; text-transform:uppercase; font-weight:700; transition:0.3s; display:inline-flex; align-items:center; justify-content:center; gap:10px; }
-  .button:hover { background:#bfbfbf; color:#0a0a0a; }
+  .hero {
+    display:grid;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:50px;
+    min-height:100vh;
+    align-items:center;
+    padding:160px 0 100px;
+  }
+  .hero-tag { display:inline-flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:999px; padding:6px 16px; font-size:12px; text-transform:uppercase; letter-spacing:2px; color:var(--gray); }
+  .hero h1 {
+    font-family:'Space Grotesk', sans-serif;
+    font-size:64px;
+    letter-spacing:6px;
+    text-transform:uppercase;
+    margin:20px 0;
+  }
+  .hero p { font-size:18px; color:var(--gray); max-width:620px; }
+  .hero-actions { display:flex; align-items:center; gap:16px; margin-top:28px; }
+  .button {
+    background:var(--white);
+    color:var(--black);
+    padding:16px 34px;
+    border-radius:999px;
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    font-weight:700;
+    transition:0.3s;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+  }
+  .button.secondary {
+    background:transparent;
+    color:var(--white);
+    border:1px solid var(--line);
+  }
+  .button:hover { transform:translateY(-2px); }
 
-  @keyframes fadeInDown { 0% {opacity:0; transform:translateY(-50px);} 100% {opacity:1; transform:translateY(0);} }
-  @keyframes fadeInUp { 0% {opacity:0; transform:translateY(50px);} 100% {opacity:1; transform:translateY(0);} }
-  @keyframes fadeIn { 0% {opacity:0;} 100% {opacity:1;} }
+  .hero-panel {
+    background:var(--black-soft);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:28px;
+    box-shadow:0 30px 60px rgba(0,0,0,0.45);
+  }
+  .panel-title { font-size:14px; text-transform:uppercase; letter-spacing:2px; color:var(--gray); margin-bottom:18px; }
+  .hero-metrics { display:grid; gap:16px; }
+  .metric { display:flex; justify-content:space-between; border-bottom:1px dashed rgba(255,255,255,0.12); padding-bottom:12px; }
+  .metric strong { font-size:22px; }
 
-  /* Luzes animadas */
-  .light { position:absolute; border-radius:50%; filter:blur(90px); opacity:0.45; animation:float 6s ease-in-out infinite alternate; }
-  .light1 { width:260px; height:260px; background:#ffffff; top:15%; left:8%; }
-  .light2 { width:180px; height:180px; background:#ffffff; top:70%; left:80%; }
-  @keyframes float { 0% {transform:translateY(0);} 100% {transform:translateY(-30px);} }
-
-  /* Sections */
   main section { padding:90px 0; }
-  h2 { color:#fff; font-size:36px; text-align:center; margin-bottom:24px; letter-spacing:2px; text-transform:uppercase; }
-  p { font-size:18px; margin-bottom:20px; color:#bdbdbd; }
+  h2 { color:#fff; font-size:32px; text-align:center; margin-bottom:24px; letter-spacing:2px; text-transform:uppercase; font-family:'Space Grotesk', sans-serif; }
+  p { font-size:17px; margin-bottom:20px; color:var(--gray); }
 
-  /* Grid / Cards */
-  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:30px; }
-  .card { background:#0f0f0f; border:1px solid rgba(255,255,255,0.08); padding:28px; border-radius:20px; text-align:left; box-shadow:0 25px 60px rgba(0,0,0,0.4); transition:0.3s; }
-  .card:hover { transform:translateY(-8px); border-color:rgba(255,255,255,0.18); }
-
-  .card h3 { color:#fff; margin-bottom:15px; font-size:20px; }
-  .card p { color:#bdbdbd; }
-
-  /* Footer */
-  footer { background:#0f0f0f; text-align:center; padding:40px 20px; font-size:13px; color:#8a8a8a; border-top:1px solid rgba(255,255,255,0.08); }
-
-  /* Button estilo CTA */
-  .cta-button { background:#f5f5f5; color:#0a0a0a; padding:14px 30px; border-radius:999px; font-weight:700; font-size:14px; letter-spacing:1px; text-transform:uppercase; display:inline-flex; align-items:center; justify-content:center; margin-top:20px; transition:0.3s; }
-  .cta-button:hover { background:#bfbfbf; color:#0a0a0a; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:24px; }
+  .card {
+    background:var(--black-soft);
+    border:1px solid var(--line);
+    padding:26px;
+    border-radius:20px;
+    text-align:left;
+    box-shadow:0 25px 60px rgba(0,0,0,0.45);
+    transition:0.3s;
+  }
+  .card:hover { transform:translateY(-6px); border-color:rgba(255,255,255,0.2); }
+  .card h3 { color:#fff; margin-bottom:12px; font-size:18px; letter-spacing:1px; }
 
   .section-lead { text-align:center; max-width:760px; margin:0 auto 40px; }
 
-  .ebook-card { display:grid; grid-template-columns:1.1fr 1fr; gap:28px; align-items:center; }
-  .ebook-cover { width:100%; border-radius:16px; filter: grayscale(1); }
-  .ebook-meta { font-size:14px; text-transform:uppercase; letter-spacing:1px; color:#8f8f8f; margin-bottom:8px; }
-  .price-tag { font-size:28px; color:#fff; margin:12px 0 4px; }
-  .badge { display:inline-flex; align-items:center; gap:6px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:6px 14px; font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#d1d1d1; }
+  .tab-shell {
+    background:var(--black-soft);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:30px;
+  }
+  .tab-bar {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:24px;
+  }
+  .tab-button {
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--gray);
+    padding:10px 18px;
+    border-radius:999px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:0.2s;
+  }
+  .tab-button.active {
+    background:var(--white);
+    color:var(--black);
+  }
+  .tab-content { display:none; animation:fadeIn 0.4s ease; }
+  .tab-content.active { display:block; }
 
-  @media (max-width: 768px) {
-    header { padding:14px 0; }
+  .ebook-card { display:grid; grid-template-columns:1.1fr 1fr; gap:28px; align-items:center; }
+  .ebook-cover { width:100%; border-radius:16px; filter: grayscale(1); border:1px solid var(--line); }
+  .ebook-meta { font-size:12px; text-transform:uppercase; letter-spacing:2px; color:#8f8f8f; margin-bottom:8px; }
+  .price-tag { font-size:28px; color:#fff; margin:12px 0 4px; }
+  .badge { display:inline-flex; align-items:center; gap:6px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:6px 14px; font-size:11px; text-transform:uppercase; letter-spacing:2px; color:#d1d1d1; }
+
+  .flash-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px; }
+  .flash-card {
+    border:1px dashed rgba(255,255,255,0.2);
+    padding:20px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.03);
+  }
+  .countdown {
+    font-family:'Space Grotesk', sans-serif;
+    font-size:32px;
+    letter-spacing:4px;
+  }
+  .flash-note { font-size:13px; text-transform:uppercase; letter-spacing:2px; color:var(--gray); }
+
+  .zaia-section { position:relative; }
+  .zaia-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:center; }
+  .zaia-identity {
+    padding:24px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:var(--black-soft);
+  }
+  .zaia-identity h3 { font-size:24px; margin-bottom:12px; }
+  .zaia-chat {
+    background:#0a0a0a;
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    min-height:420px;
+  }
+  .chat-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--line);
+    padding-bottom:12px;
+  }
+  .chat-title { font-size:14px; text-transform:uppercase; letter-spacing:2px; }
+  .status-dot { width:8px; height:8px; border-radius:50%; background:#fff; box-shadow:0 0 10px rgba(255,255,255,0.6); }
+  .chat-messages { flex:1; display:flex; flex-direction:column; gap:12px; overflow:auto; padding-right:6px; }
+  .message { padding:12px 16px; border-radius:18px; max-width:80%; font-size:14px; line-height:1.4; }
+  .message.bot { background:rgba(255,255,255,0.08); align-self:flex-start; }
+  .message.user { background:#f5f5f5; color:#050505; align-self:flex-end; }
+  .chat-input { display:flex; gap:10px; }
+  .chat-input input {
+    flex:1;
+    background:#050505;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:12px 16px;
+    color:#fff;
+    font-size:14px;
+  }
+  .chat-input button {
+    background:#fff;
+    color:#050505;
+    border:none;
+    border-radius:999px;
+    padding:12px 18px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .quick-actions { display:flex; flex-wrap:wrap; gap:10px; }
+  .quick-actions button {
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--gray);
+    border-radius:999px;
+    padding:6px 14px;
+    font-size:11px;
+    letter-spacing:1px;
+    cursor:pointer;
+  }
+
+  footer {
+    background:#0f0f0f;
+    text-align:center;
+    padding:40px 20px;
+    font-size:12px;
+    color:#8a8a8a;
+    border-top:1px solid var(--line);
+  }
+
+  @keyframes fadeIn { 0% {opacity:0; transform:translateY(10px);} 100% {opacity:1; transform:translateY(0);} }
+
+  @media (max-width: 980px) {
+    .hero { grid-template-columns:1fr; }
     nav { display:none; }
-    .hero h1 { font-size:38px; letter-spacing:4px; }
-    .hero p { font-size:18px; }
     .ebook-card { grid-template-columns:1fr; }
+    .flash-grid { grid-template-columns:1fr; }
+    .zaia-grid { grid-template-columns:1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size:42px; letter-spacing:3px; }
+    .hero-actions { flex-direction:column; align-items:flex-start; }
   }
 </style>
 </head>
 <body>
+<div class="grid-noise"></div>
 
-<!-- Luzes de fundo -->
-<div class="light light1"></div>
-<div class="light light2"></div>
-
-<!-- Header -->
 <header>
   <div class="container nav-inner">
     <img src="ChatGPT Image 29 de dez. de 2025, 13_25_06.png" alt="NeuroScore Logo">
     <nav>
       <a href="#sobre">Sobre</a>
       <a href="#metodos">Métodos</a>
-      <a href="#ebook">Ebook</a>
+      <a href="#promocao">Promo Relâmpago</a>
+      <a href="#zaia">Zaia AI</a>
       <a href="#contato">Contato</a>
     </nav>
   </div>
 </header>
 
-<!-- Hero -->
 <section class="hero">
-  <h1>NeuroScore</h1>
-  <p>Treinamento cognitivo com metodologia baseada em neurociência para ampliar foco, memória e tomada de decisão.</p>
-  <a href="#ebook" class="button">Comprar Ebook</a>
+  <div class="container">
+    <span class="hero-tag">NeuroScore · Preto & Branco</span>
+    <h1>Performance cognitiva
+      em alta definição.</h1>
+    <p>Visual inovador, linguagem minimalista e interações inteligentes. A NeuroScore combina neurociência e design monocromático para focar no que importa: resultados mentais consistentes.</p>
+    <div class="hero-actions">
+      <a href="#promocao" class="button">Ver Promo Relâmpago</a>
+      <a href="#zaia" class="button secondary">Falar com Zaia AI</a>
+    </div>
+  </div>
+  <div class="container hero-panel">
+    <div class="panel-title">Painel de impacto</div>
+    <div class="hero-metrics">
+      <div class="metric"><span>Treinos Cognitivos</span><strong>+42</strong></div>
+      <div class="metric"><span>Protocolos validados</span><strong>08</strong></div>
+      <div class="metric"><span>Tempo médio de evolução</span><strong>21d</strong></div>
+      <div class="metric"><span>Suporte por IA</span><strong>24/7</strong></div>
+    </div>
+  </div>
 </section>
 
 <main>
-  <!-- Sobre -->
   <section id="sobre">
     <div class="container">
       <h2>Sobre NeuroScore</h2>
       <div class="section-lead">
-        <p>A NeuroScore é uma marca de performance mental que une ciência e prática para impulsionar resultados reais no dia a dia.</p>
+        <p>Uma identidade monocromática, direta e científica. A NeuroScore desenha jornadas cognitivas e estabelece rotinas inteligentes para o alto desempenho mental.</p>
       </div>
-      <p>Com conteúdos digitais de alto padrão, ajudamos você a treinar habilidades cognitivas essenciais como memória, concentração e raciocínio lógico.</p>
-      <p>Nosso foco é uma experiência direta, elegante e eficiente — o seu cérebro no centro da estratégia.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Identidade Precisa</h3>
+          <p>Tipografia sólida, contraste máximo e foco no essencial para traduzir confiança e clareza.</p>
+        </div>
+        <div class="card">
+          <h3>Resultados Mensuráveis</h3>
+          <p>Métricas de foco, memória e decisão para acompanhar seu progresso com objetividade.</p>
+        </div>
+        <div class="card">
+          <h3>Experiência Imersiva</h3>
+          <p>Interações em preto e branco que reforçam atenção e eliminam distrações visuais.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Métodos -->
   <section id="metodos">
     <div class="container">
       <h2>Métodos de Treinamento</h2>
@@ -140,25 +367,86 @@
     </div>
   </section>
 
-  <!-- Ebook -->
-  <section id="ebook">
+  <section id="promocao">
     <div class="container">
-      <h2>Nosso Ebook</h2>
-      <div class="card ebook-card">
-        <img src="ChatGPT Image 29 de dez. de 2025, 13_30_54.png" alt="Capa do Ebook" class="ebook-cover">
-        <div>
-          <span class="badge">Edição Digital</span>
-          <h3>NeuroScore: Mente em Alta Performance</h3>
-          <p>Um guia completo com protocolos claros, exercícios práticos e rotinas inteligentes para evoluir sua performance cognitiva.</p>
-          <p class="ebook-meta">Formato PDF • Acesso imediato • Conteúdo exclusivo</p>
-          <div class="price-tag">R$ 14,99</div>
-          <a href="https://buy.stripe.com/test_5kQ9AS1TCdxr3CG5P6gjC00" class="cta-button">Comprar Ebook</a>
+      <h2>Promoção Relâmpago</h2>
+      <div class="section-lead">
+        <p>Uma aba dedicada para o ebook NeuroScore com tempo limitado e vantagens exclusivas enquanto o relógio está ativo.</p>
+      </div>
+      <div class="tab-shell">
+        <div class="tab-bar" role="tablist">
+          <button class="tab-button active" data-tab="tab-ebook" role="tab">Ebook NeuroScore</button>
+          <button class="tab-button" data-tab="tab-flash" role="tab">Promo Relâmpago</button>
+        </div>
+        <div id="tab-ebook" class="tab-content active" role="tabpanel">
+          <div class="card ebook-card">
+            <img src="ChatGPT Image 29 de dez. de 2025, 13_30_54.png" alt="Capa do Ebook" class="ebook-cover">
+            <div>
+              <span class="badge">Edição Digital</span>
+              <h3>NeuroScore: Mente em Alta Performance</h3>
+              <p>Um guia completo com protocolos claros, exercícios práticos e rotinas inteligentes para evoluir sua performance cognitiva.</p>
+              <p class="ebook-meta">Formato PDF • Acesso imediato • Conteúdo exclusivo</p>
+              <div class="price-tag">R$ 14,99</div>
+              <a href="https://buy.stripe.com/test_5kQ9AS1TCdxr3CG5P6gjC00" class="button">Comprar Ebook</a>
+            </div>
+          </div>
+        </div>
+        <div id="tab-flash" class="tab-content" role="tabpanel">
+          <div class="flash-grid">
+            <div class="flash-card">
+              <p class="flash-note">Oferta ativa por tempo limitado</p>
+              <div class="countdown" data-countdown="6"></div>
+              <p>Garanta o ebook com bônus de checklist cognitivo e acesso à rotina de 7 dias. Quando o tempo acabar, a condição expira automaticamente.</p>
+            </div>
+            <div class="flash-card">
+              <h3>Pack Relâmpago</h3>
+              <ul>
+                <li>✓ Ebook completo em PDF</li>
+                <li>✓ Guia rápido de foco 25/5</li>
+                <li>✓ Aula rápida de memória visual</li>
+                <li>✓ Suporte inicial com Zaia AI</li>
+              </ul>
+              <div class="price-tag">R$ 12,90</div>
+              <a href="https://buy.stripe.com/test_5kQ9AS1TCdxr3CG5P6gjC00" class="button">Quero a Promo</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contato -->
+  <section id="zaia" class="zaia-section">
+    <div class="container">
+      <h2>Zaia AI dentro da NeuroScore</h2>
+      <div class="zaia-grid">
+        <div class="zaia-identity">
+          <h3>Agente de IA Zaia</h3>
+          <p>O agente oficial da NeuroScore agora vive no site como um chat em preto e branco. Solicite planos de treino, dúvidas sobre o ebook e recomendações personalizadas em tempo real.</p>
+          <p><strong>Destaque:</strong> o chat fica sempre visível, simulando uma conversa ativa com inteligência artificial.</p>
+          <div class="quick-actions">
+            <button type="button" data-quick="Quero uma rotina de foco">Rotina de foco</button>
+            <button type="button" data-quick="Me mostre os bônus do ebook">Bônus do ebook</button>
+            <button type="button" data-quick="Como funciona o método NeuroScore?">Método NeuroScore</button>
+          </div>
+        </div>
+        <div class="zaia-chat">
+          <div class="chat-header">
+            <div class="chat-title">Zaia AI · Chat NeuroScore</div>
+            <div class="status-dot" aria-hidden="true"></div>
+          </div>
+          <div class="chat-messages" id="chatMessages">
+            <div class="message bot">Olá! Sou a Zaia AI. Quer focar em memória, concentração ou estratégia hoje?</div>
+            <div class="message bot">Posso preparar um roteiro rápido, apresentar a promoção relâmpago ou detalhar o ebook.</div>
+          </div>
+          <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Escreva sua pergunta para a Zaia AI..." aria-label="Mensagem">
+            <button type="button" id="chatSend">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="contato">
     <div class="container">
       <h2>Contato</h2>
@@ -167,10 +455,86 @@
   </section>
 </main>
 
-<!-- Footer -->
 <footer>
   &copy; 2025 NeuroScore. Todos os direitos reservados.
 </footer>
 
+<script>
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      tabButtons.forEach((btn) => btn.classList.remove('active'));
+      tabContents.forEach((content) => content.classList.remove('active'));
+      button.classList.add('active');
+      const target = document.getElementById(button.dataset.tab);
+      if (target) {
+        target.classList.add('active');
+      }
+    });
+  });
+
+  const countdownEl = document.querySelector('[data-countdown]');
+  if (countdownEl) {
+    const hours = Number(countdownEl.dataset.countdown || 6);
+    const deadline = new Date(Date.now() + hours * 60 * 60 * 1000);
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = deadline - now;
+      if (diff <= 0) {
+        countdownEl.textContent = '00:00:00';
+        return;
+      }
+      const hoursLeft = String(Math.floor(diff / 1000 / 60 / 60)).padStart(2, '0');
+      const minutesLeft = String(Math.floor(diff / 1000 / 60) % 60).padStart(2, '0');
+      const secondsLeft = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
+      countdownEl.textContent = `${hoursLeft}:${minutesLeft}:${secondsLeft}`;
+    };
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+
+  const chatMessages = document.getElementById('chatMessages');
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+  const quickActions = document.querySelectorAll('[data-quick]');
+
+  const botReplies = [
+    'Perfeito! Posso sugerir um treino de 7 dias com foco em clareza mental.',
+    'A promoção relâmpago libera bônus exclusivos e acesso imediato ao ebook.',
+    'O método NeuroScore combina neurociência aplicada e exercícios progressivos.',
+    'Quer que eu monte uma rotina de estudo personalizada agora?'
+  ];
+
+  const appendMessage = (text, type) => {
+    const message = document.createElement('div');
+    message.className = `message ${type}`;
+    message.textContent = text;
+    chatMessages.appendChild(message);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  };
+
+  const sendMessage = (text) => {
+    if (!text.trim()) return;
+    appendMessage(text, 'user');
+    chatInput.value = '';
+    setTimeout(() => {
+      const reply = botReplies[Math.floor(Math.random() * botReplies.length)];
+      appendMessage(reply, 'bot');
+    }, 700);
+  };
+
+  chatSend.addEventListener('click', () => sendMessage(chatInput.value));
+  chatInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      sendMessage(chatInput.value);
+    }
+  });
+
+  quickActions.forEach((button) => {
+    button.addEventListener('click', () => sendMessage(button.dataset.quick));
+  });
+</script>
 </body>
 </html>
